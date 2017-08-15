@@ -13,6 +13,9 @@ full = pd.concat(full)
 
 full['Age'] = full["Age"].fillna(full["Age"].median())
 full['Fare'] = full["Fare"].fillna(full["Fare"].median())
+test['Fare'] = test['Fare'].fillna(test['Fare'].median())
+test['Age'] = test["Age"].fillna(test["Age"].median())
+
 
 lb = preprocessing.LabelBinarizer()
 
@@ -20,15 +23,13 @@ lb = preprocessing.LabelBinarizer()
 full['Sex'] = lb.fit_transform(full['Sex'])
 test['Sex'] = lb.fit_transform(test['Sex'])
 
+
 full["ParentsAndChildren"] = full["Parch"]
 full["SiblingsAndSpouses"] = full["SibSp"]
 
 
 
 from sklearn import svm
-
-test['Age'] = test["Age"].fillna(test["Age"].median())
-test['Fare'] = test["Fare"].fillna(test["Fare"].median())
 
 X = np.array(full[['Age', 'Fare', 'ParentsAndChildren', 'SiblingsAndSpouses', 'Pclass', 'Sex']])
 y = np.array(full['Survived'])
